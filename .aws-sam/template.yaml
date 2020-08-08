@@ -9,32 +9,33 @@ Globals:
   Function:
     Timeout: 3
 Resources:
-  HelloWorldFunction:
-    Type: AWS::Serverless::Function
+  GetCasesFunction:
+    Type: AWS::Lambda::Function
     Properties:
-      CodeUri: HelloWorldFunction
-      Handler: app.lambdaHandler
+      CodeUri: dist
+      Handler: get.get
       Runtime: nodejs12.x
       Events:
-        HelloWorld:
+        GetCases:
           Type: Api
           Properties:
-            Path: /hello
+            Path: /cases/{type}
             Method: get
+      Code: GetCasesFunction
 Outputs:
   HelloWorldApi:
     Description: API Gateway endpoint URL for Prod stage for Hello World function
     Value:
       Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/
-  HelloWorldFunction:
+  GetCasesFunction:
     Description: Hello World Lambda Function ARN
     Value:
       Fn::GetAtt:
-      - HelloWorldFunction
+      - GetCasesFunction
       - Arn
-  HelloWorldFunctionIamRole:
+  GetCasesFunctionIamRole:
     Description: Implicit IAM Role created for Hello World function
     Value:
       Fn::GetAtt:
-      - HelloWorldFunctionRole
+      - GetCasesFunctionRole
       - Arn
