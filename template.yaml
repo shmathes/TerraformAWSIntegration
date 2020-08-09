@@ -1,0 +1,100 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  CovidManagement
+
+  Sample SAM Template for CovidManagement
+  
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 5
+
+Resources:
+  GetCasesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: cases-get
+      CodeUri: dist
+      Handler: get.get
+      Runtime: nodejs12.x
+      Events:
+        GetCases:
+          Type: Api
+          Properties:
+            Path: /cases/{type}
+            Method: get
+
+  CreateCaseFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: cases-create
+      CodeUri: dist
+      Handler: create.create
+      Runtime: nodejs12.x
+      Events:
+        CreateCase:
+          Type: Api
+          Properties:
+            Path: /cases
+            Method: post
+
+  DeleteCaseFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: cases-delete
+      CodeUri: dist
+      Handler: delete.delete
+      Runtime: nodejs12.x
+      Events:
+        CreateCase:
+          Type: Api
+          Properties:
+            Path: /cases
+            Method: delete
+
+  UpdateCaseFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: cases-update
+      CodeUri: dist
+      Handler: update.update
+      Runtime: nodejs12.x
+      Events:
+        CreateCase:
+          Type: Api
+          Properties:
+            Path: /cases
+            Method: put
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  HelloWorldApi:
+    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
+  GetCasesFunction:
+    Description: "Hello World Lambda Function ARN"
+    Value: !GetAtt GetCasesFunction.Arn
+  GetCasesFunctionIamRole:
+    Description: "Implicit IAM Role created for Hello World function"
+    Value: !GetAtt GetCasesFunctionRole.Arn
+  CreateCaseFunction:
+    Description: "Hello World Lambda Function ARN"
+    Value: !GetAtt CreateCaseFunction.Arn
+  CreateCaseFunctionIamRole:
+    Description: "Implicit IAM Role created for Hello World function"
+    Value: !GetAtt CreateCaseFunctionRole.Arn
+  DeleteCaseFunction:
+    Description: "Hello World Lambda Function ARN"
+    Value: !GetAtt DeleteCaseFunction.Arn
+  DeleteCaseFunctionIamRole:
+    Description: "Implicit IAM Role created for Hello World function"
+    Value: !GetAtt DeleteCaseFunctionRole.Arn
+  UpdateCaseFunction:
+    Description: "Hello World Lambda Function ARN"
+    Value: !GetAtt UpdateCaseFunction.Arn
+  UpdateCaseFunctionIamRole:
+    Description: "Implicit IAM Role created for Hello World function"
+    Value: !GetAtt UpdateCaseFunctionRole.Arn
