@@ -1,0 +1,29 @@
+{
+  "name": "TerraformAWSIntegration",
+  "version": "1.0.0",
+  "description": "This project contains source code and supporting files for a serverless application that you can deploy with the SAM CLI. It includes the following files and folders.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sam-build": "sam build -t \"./template.yaml\" -b \"./.aws-sam\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://shmathes@github.com/shmathes/TerraformAWSIntegration.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shmathes/TerraformAWSIntegration/issues"
+  },
+  "homepage": "https://github.com/shmathes/TerraformAWSIntegration#readme",
+  "devDependencies": {
+    "@types/node": "^14.0.27"
+  },
+  "dependencies": {
+    "@types/aws-lambda": "^8.10.59",
+    "aws-lambda": "^1.0.6",
+    "aws-sdk": "^2.729.0"
+  }
+}

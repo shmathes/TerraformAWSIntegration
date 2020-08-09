@@ -6,8 +6,10 @@ import { Case } from './model/case';
 //Create dynamoDb object
 const dynamoDb = new DynamoDB.DocumentClient();
 
-export const get: Handler = async (event: APIGatewayEvent, context: Context) => {
+ module.exports.get = async (event: APIGatewayEvent, context: Context) => {
     const type = event.pathParameters!.type;
+
+    //Return all case information
     if(type === 'all')
     {
         const employees =  await getAllEmployeeData();
@@ -16,14 +18,23 @@ export const get: Handler = async (event: APIGatewayEvent, context: Context) => 
             body: JSON.stringify(employees)
         }
         return response;
-    } else if(type === 'single')
+    } 
+    /*
+    Pull single case
+    Cases will be pulled in using multiple queryStringParameters => case_id, employee_id, employee_nam
+    Grab case_id from query string parameter
+    */
+    else if(type === 'single')
     {
         const queryString = event.queryStringParameters;
+
+        //TODO: Find better option to pull key from queryString object
         let key:string = '';
         for(let i in queryString)
         {
             key = i;
         }
+
         if(key === 'case_id')
         {
             let case_id: string = event.queryStringParameters!.case_id;
@@ -39,6 +50,7 @@ export const get: Handler = async (event: APIGatewayEvent, context: Context) => 
     }
 };
 
+//TODO: Implement environment variables
 export function getAllEmployeeData()
 {
     const params = {
