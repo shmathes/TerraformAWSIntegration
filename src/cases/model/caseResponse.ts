@@ -1,4 +1,4 @@
 export interface CaseResponse {
     statusCode: number;
-    body: string;
+    body: string | undefined;
 }
