@@ -53,6 +53,20 @@ Resources:
             Path: /cases
             Method: delete
 
+  UpdateCaseFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: cases-update
+      CodeUri: dist
+      Handler: update.update
+      Runtime: nodejs12.x
+      Events:
+        CreateCase:
+          Type: Api
+          Properties:
+            Path: /cases
+            Method: put
+
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
@@ -78,3 +92,9 @@ Outputs:
   DeleteCaseFunctionIamRole:
     Description: "Implicit IAM Role created for Hello World function"
     Value: !GetAtt DeleteCaseFunctionRole.Arn
+  UpdateCaseFunction:
+    Description: "Hello World Lambda Function ARN"
+    Value: !GetAtt UpdateCaseFunction.Arn
+  UpdateCaseFunctionIamRole:
+    Description: "Implicit IAM Role created for Hello World function"
+    Value: !GetAtt UpdateCaseFunctionRole.Arn
