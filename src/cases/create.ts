@@ -5,9 +5,9 @@ import { Case } from './model/case';
 
 const dynamoDb = new DynamoDB.DocumentClient();
 
-module.exports.create = async (event: APIGatewayEvent, context: Context) => {
+module.exports.create = async (event: APIGatewayEvent, context: any): Promise<CaseResponse> => {
 
-    console.log(event);
+    console.log(context);
     const empData = JSON.parse(event.body || '') as Case
     console.log(empData);
 
@@ -22,12 +22,17 @@ module.exports.create = async (event: APIGatewayEvent, context: Context) => {
 };
 
 export function saveItemToDb(empdata: Case){
+    let today: Date = new Date();
+    let dd = String(today.getDate());
+    let mm = String(today.getMonth() + 1);
+    let yyy = today.getFullYear();
+    let date = dd + '/' + mm + '/' + yyy;
     const params = {
         TableName: 'Covid_Management',
         Item: {
             case_id: "" + Math.floor(Math.random() * (1000-7+1)+7),
             //TODO: Fix date submitted
-            date_submitted: Date.now().toLocaleString(),
+            date_submitted: date,
             employee_first_name: empdata.employee_first_name,
             employee_last_name: empdata.employee_last_name,
             employee_id: empdata.employee_id,

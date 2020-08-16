@@ -1,5 +1,5 @@
 {
-  "body": "{\"employee_last_name\":\"Mathes\",\"location\":\"Corydon\",\"employee_id\":\"111222\",\"employee_first_name\":\"Marlee\",\"risk_level\":\"high\",\"employee_name\":\"Mmathes\"}",
+  "body": "{\"employee_last_name\":\"Washington\",\"location\":\"Washington, DC\",\"employee_id\":\"000111\",\"employee_first_name\":\"George\",\"risk_level\":\"low\",\"employee_name\":\"Prez1\"}",
   "resource": "/{proxy+}",
   "path": "/path/to/resource",
   "httpMethod": "POST",
